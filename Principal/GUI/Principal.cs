@@ -46,6 +46,7 @@ namespace Principal.GUI
         public Principal()
         {
             InitializeComponent();
+            this.WindowState = FormWindowState.Maximized;
             Configurar();
             LeerLista();
             ContarRegistro();
