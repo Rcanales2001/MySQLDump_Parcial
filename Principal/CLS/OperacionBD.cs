@@ -52,16 +52,23 @@ namespace Principal.CLS
                 MySqlCommand Comando = new MySqlCommand();
                 try
                 {
-                    if (base.Conectar())
+                    if (!base.Conectar())
+                    {
+                        // Intentar reconectar
+                        base.Conectar();
+                    }
+
+                    if (base._CONEXION.State == ConnectionState.Open)
                     {
                         Comando.Connection = base._CONEXION;
                         Comando.CommandText = pSentencia;
                         FilasAfectadas = Comando.ExecuteNonQuery();
                     }
                 }
-                catch
+                catch (Exception ex)
                 {
                     FilasAfectadas = -1;
+                    Console.WriteLine("Error executing SQL command: " + ex.Message);
                 }
                 finally
                 {

@@ -26,6 +26,9 @@ namespace Principal.GUI
         {
             InitializeComponent();
             _AccionElegida = pAccion;
+
+            // Suscribe el evento Load al método correspondiente
+            this.Load += EdicionConexion_Load;
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
@@ -58,7 +61,12 @@ namespace Principal.GUI
 
         private void cmbElegir_SelectedIndexChanged(object sender, EventArgs e)
         {
-            string cadenaConexion = "Server=localhost;Port=3306;Database=mysql;Uid=root;Pwd=roberto1;";
+
+           
+        }
+        private void CargarBasesDeDatos()
+        {
+            string cadenaConexion = "Server=localhost;Port=3306;Database=mysql;Uid=root;Pwd=roberto1;SslMode=None;";
             List<string> basesDeDatos = new List<string>();
 
             try
@@ -67,27 +75,55 @@ namespace Principal.GUI
                 {
                     conexion.Open();
 
-                    using (MySqlCommand cmd = new MySqlCommand("SELECT schema_name FROM information_schema.schemata", conexion))
+                    using (MySqlCommand cmd = new MySqlCommand("SHOW DATABASES", conexion))
                     {
                         using (MySqlDataReader dr = cmd.ExecuteReader())
                         {
-                            while (dr.Read())
+                            if (dr.HasRows)
                             {
-                                basesDeDatos.Add(dr["schema_name"].ToString());
+                                while (dr.Read())
+                                {
+                                    basesDeDatos.Add(dr[0].ToString());
+                                }
+                            }
+                            else
+                            {
+                                Console.WriteLine("No hay bases de datos disponibles.");
                             }
                         }
                     }
                 }
+
+                // Asigna la lista de bases de datos al ComboBox
+                cmbElegir.DataSource = basesDeDatos;
+            }
+            catch (MySqlException ex)
+            {
+                throw new Exception("Error MySQL al cargar bases de datos.", ex);
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error al obtener bases de datos: " + ex.Message);
+                throw new Exception("Error al cargar bases de datos.", ex);
             }
         }
-
         private void EdicionConexion_Load(object sender, EventArgs e)
         {
-
+            try
+            {
+                // Llama al método para cargar las bases de datos en el ComboBox
+                CargarBasesDeDatos();
+            }
+            catch (MySqlException ex)
+            {
+                Console.WriteLine("Error MySQL: " + ex.Message);
+                Console.WriteLine("Número de error: " + ex.Number);
+                // Otros detalles del error
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error general: " + ex.Message);
+                // Otros detalles del error
+            }
         }
     }
  }

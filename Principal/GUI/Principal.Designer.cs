@@ -50,6 +50,8 @@ namespace Principal.GUI
             this.Usuario = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Contrasenia = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Base = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.salirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dtgPerfiles)).BeginInit();
@@ -68,10 +70,12 @@ namespace Principal.GUI
             this.btnEditar,
             this.toolStripSeparator2,
             this.btnEliminar,
+            this.toolStripSeparator6,
+            this.salirToolStripMenuItem,
             this.toolStripSeparator1});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(944, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(1057, 25);
             this.toolStrip1.TabIndex = 0;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -151,7 +155,7 @@ namespace Principal.GUI
             this.lblRegistros});
             this.statusStrip1.Location = new System.Drawing.Point(0, 444);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(944, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(1057, 22);
             this.statusStrip1.TabIndex = 1;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -185,7 +189,7 @@ namespace Principal.GUI
             this.dtgPerfiles.ReadOnly = true;
             this.dtgPerfiles.RowHeadersVisible = false;
             this.dtgPerfiles.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dtgPerfiles.Size = new System.Drawing.Size(944, 419);
+            this.dtgPerfiles.Size = new System.Drawing.Size(1057, 419);
             this.dtgPerfiles.TabIndex = 2;
             // 
             // Perfil
@@ -230,11 +234,24 @@ namespace Principal.GUI
             this.Base.Name = "Base";
             this.Base.ReadOnly = true;
             // 
+            // salirToolStripMenuItem
+            // 
+            this.salirToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("salirToolStripMenuItem.Image")));
+            this.salirToolStripMenuItem.Name = "salirToolStripMenuItem";
+            this.salirToolStripMenuItem.Size = new System.Drawing.Size(66, 25);
+            this.salirToolStripMenuItem.Text = "Salir";
+            this.salirToolStripMenuItem.Click += new System.EventHandler(this.salirToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator6
+            // 
+            this.toolStripSeparator6.Name = "toolStripSeparator6";
+            this.toolStripSeparator6.Size = new System.Drawing.Size(6, 25);
+            // 
             // Principal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(944, 466);
+            this.ClientSize = new System.Drawing.Size(1057, 466);
             this.Controls.Add(this.dtgPerfiles);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.toolStrip1);
@@ -273,5 +290,7 @@ namespace Principal.GUI
         private System.Windows.Forms.DataGridViewTextBoxColumn Contrasenia;
         private System.Windows.Forms.DataGridViewTextBoxColumn Base;
         public System.Windows.Forms.DataGridView dtgPerfiles;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
+        private System.Windows.Forms.ToolStripMenuItem salirToolStripMenuItem;
     }
 }

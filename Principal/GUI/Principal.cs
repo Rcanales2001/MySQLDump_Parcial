@@ -1,4 +1,5 @@
 ﻿using MySql.Data.MySqlClient;
+using Principal.CLS;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,7 +15,8 @@ namespace Principal.GUI
     public partial class Principal : Form
     {
         DataTable _DATOS = new DataTable();
-
+        ConexionBD dbConexion = new ConexionBD();
+        ToolStripStatusLabel toolStripStatusLabelDBStatus; // Declare a ToolStripStatusLabel
         public void GuardarLista()
         {
             _DATOS.TableName = "Conexiones";
@@ -47,9 +49,29 @@ namespace Principal.GUI
         {
             InitializeComponent();
             this.WindowState = FormWindowState.Maximized;
+            toolStripStatusLabelDBStatus = new ToolStripStatusLabel();
+            statusStrip1.Items.Add(toolStripStatusLabelDBStatus);
+
+            // Check database connection status on form load
+            UpdateDatabaseConnectionStatus();
             Configurar();
             LeerLista();
             ContarRegistro();
+        }
+        private void UpdateDatabaseConnectionStatus()
+        {
+            if (dbConexion.Conectar())
+            {
+                // Connection successful
+                toolStripStatusLabelDBStatus.Text = "Conectado a la base de datos";
+                toolStripStatusLabelDBStatus.ForeColor = Color.Green;
+            }
+            else
+            {
+                // Connection failed
+                toolStripStatusLabelDBStatus.Text = "Desconectado de la base de datos";
+                toolStripStatusLabelDBStatus.ForeColor = Color.Red;
+            }
         }
 
         private void btnRespaldar_Click(object sender, EventArgs e)
@@ -199,6 +221,23 @@ namespace Principal.GUI
             catch (Exception ex)
             {
                 MessageBox.Show("Seleccione un perfil", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void salirToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // Mostrar un cuadro de diálogo de confirmación
+            DialogResult result = MessageBox.Show("¿Estás seguro de que deseas cerrar la sesión?", "Cerrar Sesión", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            // Comprobar la respuesta del usuario
+            if (result == DialogResult.Yes)
+            {
+                // Cerrar la sesión (puedes agregar más lógica aquí)
+                // Por ejemplo, limpiar los datos de la sesión, cerrar formularios abiertos, etc.
+                dbConexion.Desconectar();
+
+                // Salir de la aplicación
+                Application.Exit();
             }
         }
     }

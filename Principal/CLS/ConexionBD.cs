@@ -50,8 +50,9 @@ namespace Principal.CLS
         }
 
         protected MySqlConnection _CONEXION;
-        String _Cadena = "Server=localhost;Port=3306;Database=information_schema;Uid=root;Pwd=roberto1;";
-        protected Boolean Conectar()
+        String _Cadena = "Server=localhost;Port=3306;Database=mysql;Uid=root;Pwd=roberto1;SslMode=None;";
+
+        public Boolean Conectar()
         {
             Boolean _Conectado = false;
 
@@ -59,11 +60,18 @@ namespace Principal.CLS
             {
                 _CONEXION = new MySqlConnection();
                 _CONEXION.ConnectionString = _Cadena;
+                
                 _CONEXION.Open();
                 _Conectado = true;
             }
-            catch
+            catch (Exception ex)
             {
+                // Log the exception or display a message for debugging
+                Console.WriteLine("Error connecting to the database: " + ex.Message);
+                if (ex.InnerException != null)
+                {
+                    Console.WriteLine("Inner Exception: " + ex.InnerException.Message);
+                }
                 _Conectado = false;
             }
             finally
@@ -73,7 +81,7 @@ namespace Principal.CLS
             return _Conectado;
         }
 
-        protected void Desconectar()
+        public void Desconectar()
         {
             try
             {
