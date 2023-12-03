@@ -50,7 +50,7 @@ namespace Principal.CLS
         }
 
         protected MySqlConnection _CONEXION;
-        String _Cadena = "Server=localhost;Port=3306;Database=mysql;Uid=root;Pwd=roberto1;SslMode=None;";
+        String _Cadena = "Server=localhost;Port=3306;Database=mysql;Uid=administrador;Pwd=admin777;SslMode=None;";
 
         public Boolean Conectar()
         {
